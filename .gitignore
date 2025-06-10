@@ -1,6 +1,7 @@
 # --- Python ---
 __pycache__/
 .pytest_cache
+*/__init__.py
 *.py[cod]
 *.pyo
 *.pyd
