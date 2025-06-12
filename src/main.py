@@ -25,14 +25,7 @@ logging.basicConfig(
 )
 logger=logging.getLogger("adult-income")
 
-run_name = f"run-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-
-# MLflow config
-MLFLOW_URI = "http://20.237.86.247:5000/"
-EXPERIMENT_NAME = "adult-income-amalia-martin"
-
-mlflow.set_tracking_uri(MLFLOW_URI)
-mlflow.set_experiment(EXPERIMENT_NAME)
+run_name = os.getenv('RUN_NAME', 'run_name_fot_found')
 
 # Paths
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -41,6 +34,10 @@ MODEL_DIR = PROJECT_ROOT / "models"
 MODEL_DIR.mkdir(exist_ok=True)
 
 def main():
+
+    mlflow.set_tracking_uri(os.getenv('MLFLOW_URI', 'http://localhost:5000'))
+    mlflow.set_experiment(os.getenv('EXPERIMENT_NAME', 'experiment_name_not_found'))
+
     script_start = time.time()
     logger.info(f"System info: {platform.platform()}")
 
